@@ -60,24 +60,15 @@
         android:layout_height="wrap_content"
         android:background="@color/colorPrimaryTransparent">
 
-        <ImageButton
-            android:id="@+id/diary_button"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_alignParentEnd="true"
-            android:layout_margin="5dp"
-            android:background="@android:color/transparent"
-            android:scaleType="fitCenter"
-            android:src="@drawable/menu_button" />
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="45dp"
             android:layout_alignParentStart="true"
             android:gravity="center_vertical"
             android:text="Ngày 10/5/2018"
+            android:paddingStart="30dp"
             android:textSize="23sp"
-            android:onClick="overView"/>
+            android:background="@android:color/transparent"/>
     </RelativeLayout>
 
 </RelativeLayout>
