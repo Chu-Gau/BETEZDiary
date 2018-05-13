@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LockActivity">
+
+    <!--this is background-->
+    <!--<ImageView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:src="@drawable/lock_background"-->
+        <!--android:background="@android:color/transparent"/>-->
+
+    <EditText
+        android:id="@+id/password_field"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:ems="7"
+        android:textSize="23sp"
+        android:gravity="center"
+        android:inputType="numberPassword"
+        android:layout_alignParentTop="true"
+        android:fontFamily="monospace"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="144dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/passcode_request"
+        android:layout_alignTop="@id/password_field"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="-55dp"/>
+</RelativeLayout>

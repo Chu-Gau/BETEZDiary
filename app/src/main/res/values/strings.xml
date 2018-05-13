@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">BETEZ Diary</string>
+    <string name="lorem100">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sed urna id odio luctus condimentum. Ut faucibus, dolor vel gravida rhoncus, purus odio interdum tortor, nec sagittis tortor est id lorem. Integer quis eleifend ipsum. Quisque nec ante euismod, suscipit lorem nec, vestibulum risus. Nunc faucibus eu massa quis cursus. Morbi non posuere tellus, a eleifend augue. Nunc mollis ante vitae orci mollis, ut dapibus ex malesuada.
+Maecenas elementum vulputate purus nec tempus. Sed ante quam, scelerisque ac felis eget, aliquam dapibus elit. Donec mi enim, tincidunt nec lorem in, elementum iaculis sapien. Pellentesque id lorem ac justo congue aliquam vitae eget arcu. Mauris lorem elit, scelerisque eu ligula ut, convallis pulvinar erat. Nam eleifend cursus metus, eget suscipit felis ornare in. Aliquam blandit interdum blandit. Duis vulputate orci nec diam pharetra, ut vestibulum elit congue. Pellentesque maximus eleifend massa, vel rhoncus diam hendrerit et. Phasellus mi erat, mattis ut placerat at, vehicula quis odio. Nullam tempus ut justo sed mollis. In elit ipsum, tincidunt ut dolor eget, posuere pretium nisi. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Phasellus eget turpis interdum lectus porta placerat. Nunc dolor arcu, vulputate eget faucibus in, pulvinar id. </string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="passcode_request">Nhập mật khẩu để tiếp tục</string>
+    <string name="page_content_hint">What are you thinking</string>
+
+</resources>
