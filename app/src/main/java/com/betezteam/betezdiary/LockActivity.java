@@ -31,6 +31,7 @@ public class LockActivity extends AppCompatActivity {
                         Intent actInt = new Intent(LockActivity.this, MainActivity.class);
                         actInt.putExtra("get_through", true);
                         startActivity(actInt);
+                        finish();
                     }
                     else {
                         Toast.makeText(LockActivity.this, "Mật khẩu sai!", Toast.LENGTH_LONG).show();

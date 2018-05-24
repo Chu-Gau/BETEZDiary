@@ -1,38 +1,42 @@
 package com.betezteam.DiaryModel;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.betezteam.util.BetezDiaryDb;
 
-import java.sql.Date;
+import org.threeten.bp.LocalDate;
+import org.threeten.bp.format.DateTimeFormatter;
+
 import java.text.SimpleDateFormat;
 
 public class DiaryPage {
 
-    private Date date;
+    private LocalDate date;
     private String content;
 
-    public DiaryPage(Date date, String content) {
+    public DiaryPage(LocalDate date, String content) {
         this.date = date;
         this.content = content;
     }
 
     public DiaryPage(String date, String content) {
-        SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-            this.date = new Date(parser.parse(date).getTime());
-        } catch (Exception e) {
-        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        this.date = LocalDate.parse(date, formatter);
 
         this.content = content;
     }
 
-    public Date getDate() {
+
+    public String getDateString(){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return this.date.format(formatter);
+    }
+
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
@@ -45,8 +49,6 @@ public class DiaryPage {
     }
 
     public void submit(Context context) {
-        SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd");
-        String textString = formater.format(date);
-        new BetezDiaryDb(context).submmit(textString, content);
+        new BetezDiaryDb(context).submmit(getDateString(), content);
     }
 }

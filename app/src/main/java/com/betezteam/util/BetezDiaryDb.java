@@ -90,4 +90,5 @@ public class BetezDiaryDb extends SQLiteOpenHelper {
         String query = "Select * from diary where id = (select max(id) from diary)";
         return this.getReadableDatabase().rawQuery(query, null);
     }
+
 }

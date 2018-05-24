@@ -5,14 +5,18 @@ import android.database.Cursor;
 import android.icu.util.Calendar;
 import android.util.Log;
 
+import com.betezteam.betezdiary.MainActivity;
 import com.betezteam.util.BetezDiaryDb;
+
+import org.threeten.bp.LocalDate;
+import org.threeten.bp.format.DateTimeFormatter;
 
 import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
 
-public class DiaryList extends ArrayList<DiaryPage> {
-    public DiaryList() {
+public class Diary extends ArrayList<DiaryPage> {
+    public Diary() {
         super();
     }
 
@@ -30,4 +34,15 @@ public class DiaryList extends ArrayList<DiaryPage> {
         }
     }
 
+    public static DiaryPage getToday(Context context) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        Cursor today = new BetezDiaryDb(context).getPageByDate(LocalDate.now().format(formatter));
+        if (today.getCount() == 0){
+            return new DiaryPage(LocalDate.now(), "");
+        }
+        else {
+            today.moveToFirst();
+            return new DiaryPage(today.getString(today.getColumnIndex("date")), today.getString(today.getColumnIndex("content")));
+        }
+    }
 }
