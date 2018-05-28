@@ -4,13 +4,22 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/floral_pattern"
+    android:background="@drawable/lock_gradien"
     android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/main_background_img"
+        android:background="@android:color/transparent"
+        android:scaleType="centerCrop"
+        />
 
     <ScrollView
         android:id="@+id/diary_page_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent">
 
         <EditText
             android:id="@+id/main_content"
@@ -24,7 +33,8 @@
             android:paddingStart="21dp"
             android:paddingTop="55dp"
             android:text="@string/lorem100"
-            android:textSize="12pt" />
+            android:textSize="12pt"
+            android:textColor="#262326"/>
 
     </ScrollView>
 

@@ -43,6 +43,7 @@ public class BetezDiaryDb extends SQLiteOpenHelper {
         try {
             content = textValid(content);
 
+//            Log.d("cg", date);
             SQLiteDatabase db = this.getWritableDatabase();
             String query = "select * from diary where date = '" + date + "'";
             Cursor result = db.rawQuery(query, null);
@@ -55,7 +56,6 @@ public class BetezDiaryDb extends SQLiteOpenHelper {
                 db.insert("diary", null, contentValues);
             } else {
                 db.update("diary", contentValues, "date = '" + date + "'", null);
-//                db.update("diary", contentValues, "date = ?", new String[]{date.toString()});
             }
 
 
@@ -82,7 +82,8 @@ public class BetezDiaryDb extends SQLiteOpenHelper {
     }
 
     public Cursor getPageByDate(String date) {
-        String query = "Select * from diary where date = " + date;
+        String query = "Select * from diary where date = '" + date + "'";
+        Log.d("cg", query);
         return this.getReadableDatabase().rawQuery(query, null);
     }
 

@@ -3,14 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LockActivity">
+    android:background="@drawable/lock_gradien"
+    tools:context=".LockActivity"
+    >
 
     <!--this is background-->
-    <!--<ImageView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:src="@drawable/lock_background"-->
-        <!--android:background="@android:color/transparent"/>-->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/lock_background"
+        android:background="@android:color/transparent"
+        android:scaleType="centerCrop"
+        />
 
     <EditText
         android:id="@+id/password_field"
@@ -29,7 +33,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
         android:text="@string/passcode_request"
+        android:textSize="23sp"
         android:layout_alignTop="@id/password_field"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="-55dp"/>

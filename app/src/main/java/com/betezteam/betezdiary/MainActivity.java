@@ -51,10 +51,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        // lay lai du lieu
 
         mainDate = findViewById(R.id.main_date);
-        mainDate.setText(mainDiaryPage.getDate().toString());
+        mainDate.setText(mainDiaryPage.getDateDisplayed());
 
         mainContent = findViewById(R.id.main_content);
         mainContent.setText(mainDiaryPage.getContent());

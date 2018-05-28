@@ -27,10 +27,16 @@ public class DiaryPage {
     }
 
 
-    public String getDateString(){
+    public String getDateString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         return this.date.format(formatter);
     }
+
+    public String getDateDisplayed() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        return this.date.format(formatter);
+    }
+
 
     public LocalDate getDate() {
         return date;

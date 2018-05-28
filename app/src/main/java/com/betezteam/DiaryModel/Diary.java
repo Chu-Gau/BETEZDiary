@@ -37,6 +37,7 @@ public class Diary extends ArrayList<DiaryPage> {
     public static DiaryPage getToday(Context context) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         Cursor today = new BetezDiaryDb(context).getPageByDate(LocalDate.now().format(formatter));
+        Log.d("cg", Integer.toString(today.getCount()));
         if (today.getCount() == 0){
             return new DiaryPage(LocalDate.now(), "");
         }
