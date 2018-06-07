@@ -13,12 +13,12 @@ public class OverViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_over_view);
     }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Intent actInt = new Intent(this, MainActivity.class);
-        actInt.putExtra("get_through", true);
-        startActivity(actInt);
-    }
+//
+//    @Override
+//    protected void onPause() {
+//        super.onPause();
+//        Intent actInt = new Intent(this, DiaryPageActivity.class);
+//        actInt.putExtra("get_through", true);
+//        startActivity(actInt);
+//    }
 }

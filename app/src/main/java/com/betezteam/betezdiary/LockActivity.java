@@ -12,9 +12,18 @@ import android.widget.Toast;
 public class LockActivity extends AppCompatActivity {
 
     @Override
+    protected void onPause() {
+        super.onPause();
+
+
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lock);
+
+        startDiary(); //this is for test
 
         final EditText pass = findViewById(R.id.password_field);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
@@ -28,9 +37,7 @@ public class LockActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence password, int i, int i1, int i2) {
                 if (password.length() == 4){
                     if(password.toString().equals("1808")){
-                        Intent actInt = new Intent(LockActivity.this, MainActivity.class);
-                        actInt.putExtra("get_through", true);
-                        startActivity(actInt);
+                        startDiary();
                         finish();
                     }
                     else {
@@ -49,6 +56,15 @@ public class LockActivity extends AppCompatActivity {
 
             }
         });
+
+
+
+    }
+
+    private void startDiary() {
+        Intent actInt = new Intent(LockActivity.this, DiaryPageActivity.class);
+        actInt.putExtra("get_through", true);
+        startActivity(actInt);
     }
 
 

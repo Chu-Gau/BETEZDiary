@@ -11,7 +11,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".DiaryPageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".OverViewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".LockActivity"
+            android:noHistory="true"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,19 +27,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".OverViewActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".LockActivity"
-            android:noHistory="true"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".DiaryPageActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.betezteam.betezdiary.MainActivity" />
+                android:value="com.betezteam.betezdiary.DiaryPageActivity" />
         </activity>
     </application>
 

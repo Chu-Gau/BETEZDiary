@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/lock_gradien"
+    android:orientation="vertical">
+
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/main_background_img"
+        android:background="@android:color/transparent"
+        android:scaleType="centerCrop"
+        />
+
+    <ScrollView
+        android:id="@+id/diary_page_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent">
+
+        <EditText
+            android:id="@+id/main_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:gravity="top"
+            android:hint="@string/page_content_hint"
+            android:paddingBottom="55dp"
+            android:paddingEnd="21dp"
+            android:paddingStart="21dp"
+            android:paddingTop="55dp"
+            android:text="@string/lorem100"
+            android:textSize="12pt"
+            android:textColor="#262326"/>
+
+    </ScrollView>
+
+    <!--Navigation Bar-->
+    <RelativeLayout
+        android:id="@+id/nav_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryTransparent">
+
+        <ImageButton
+            android:id="@+id/diary_button"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="5dp"
+            android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/menu_button" />
+
+        <TextView
+            android:id="@+id/main_date"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:paddingStart="30dp"
+            android:paddingEnd="30dp"
+            android:layout_alignParentStart="true"
+            android:gravity="center_vertical"
+            android:text="Ngày 10/5/2018"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:textSize="23sp"
+            android:background="@android:color/transparent"
+            android:textColor="@android:color/white"
+            android:onClick="overView"/>
+    </RelativeLayout>
+
+<!--cg button-->
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:id="@+id/cg_button"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true">
+
+        <!--Level 2 layer-->
+        <RelativeLayout
+            android:layout_width="144dp"
+            android:layout_height="144dp"
+            android:layout_centerInParent="true"
+            android:id="@+id/cg_button_level_2"
+            android:background="@android:color/transparent"
+            >
+            <!--a*sqrt(2)/2-->
+            <Button
+                android:id="@+id/cg_button_level_2_north"
+                android:layout_width="102dp"
+                android:layout_height="42dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/cg_up"
+                android:text="’"
+                android:textSize="23sp"
+                android:gravity="center"/>
+            <Button
+                android:id="@+id/cg_button_level_2_west"
+                android:layout_width="42dp"
+                android:layout_height="102dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/cg_left"
+                android:text="! "
+                android:textSize="23sp"
+                android:gravity="center"/>
+            <Button
+                android:id="@+id/cg_button_level_2_south"
+                android:layout_width="102dp"
+                android:layout_height="42dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/cg_down"
+                android:text="\?"
+                android:textSize="23sp"
+                android:gravity="center"
+                android:paddingTop="10dp"/>
+
+        </RelativeLayout>
+
+        <!--root layer-->
+        <Button
+            android:id="@+id/cg_button_root"
+            android:layout_width="89dp"
+            android:layout_height="89dp"
+            android:layout_gravity="center"
+            android:layout_centerInParent="true"
+            android:background="@drawable/cg_root"/>
+    </RelativeLayout>
+
+</RelativeLayout>
+
+    <!--Golden ratio: 1.6 2.6-->
+    <!--Fibonacci 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597, 2584, 4181, 6765, 10946, 17711, 28657, 46368, 75025, 121393, 196418, 317811, ...-->

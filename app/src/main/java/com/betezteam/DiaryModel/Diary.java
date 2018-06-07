@@ -2,17 +2,13 @@ package com.betezteam.DiaryModel;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.icu.util.Calendar;
 import android.util.Log;
 
-import com.betezteam.betezdiary.MainActivity;
 import com.betezteam.util.BetezDiaryDb;
 
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.format.DateTimeFormatter;
 
-import java.sql.Date;
-import java.sql.Time;
 import java.util.ArrayList;
 
 public class Diary extends ArrayList<DiaryPage> {
