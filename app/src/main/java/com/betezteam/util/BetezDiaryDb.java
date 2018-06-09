@@ -39,11 +39,6 @@ public class BetezDiaryDb extends SQLiteOpenHelper {
     }
 
     public void submmit(String date, String content) {
-
-        if(content.trim().isEmpty()) return; //Không lưu nếu DL trống
-        // TODO: 6/10/2018 test this part
-
-
         try {
             content = textValid(content);
             SQLiteDatabase db = this.getWritableDatabase();
@@ -91,6 +86,11 @@ public class BetezDiaryDb extends SQLiteOpenHelper {
     public Cursor getTop30(){
         String query = "SELECT * FROM diary order by date desc limit 30";
         return this.getReadableDatabase().rawQuery(query, null);
+    }
+
+    public void delete(String date){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete("diary", "date = '" + date + "'", null);
     }
 
 }

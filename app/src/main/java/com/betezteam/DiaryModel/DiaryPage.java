@@ -2,6 +2,7 @@ package com.betezteam.DiaryModel;
 
 import android.content.Context;
 
+import com.betezteam.util.AESHelper;
 import com.betezteam.util.BetezDiaryDb;
 
 import org.threeten.bp.LocalDate;
@@ -58,6 +59,19 @@ public class DiaryPage implements Serializable{
     }
 
     public void submit(Context context) {
-        new BetezDiaryDb(context).submmit(getDateString(), content);
+
+        if(content.trim().isEmpty()) { //Không lưu nếu DL trống
+            new BetezDiaryDb(context).delete(getDateString());
+            return;
+        }
+        // TODO: 6/10/2018 test this part, turn into delete data
+
+        String encryptedContent = "";
+        try {
+            encryptedContent = AESHelper.encrypt("1808", content);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        new BetezDiaryDb(context).submmit(getDateString(), encryptedContent);
     }
 }

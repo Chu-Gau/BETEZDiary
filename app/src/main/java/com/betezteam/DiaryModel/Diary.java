@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 
+import com.betezteam.util.AESHelper;
 import com.betezteam.util.BetezDiaryDb;
 
 import org.threeten.bp.LocalDate;
@@ -27,7 +28,15 @@ public class Diary extends ArrayList<DiaryPage> {
             return new DiaryPage(date, "");
         } else {
             thisDay.moveToFirst();
-            return new DiaryPage(thisDay.getString(thisDay.getColumnIndex("date")), thisDay.getString(thisDay.getColumnIndex("content")));
+            String thisDate = thisDay.getString(thisDay.getColumnIndex("date"));
+            // TODO: 6/10/2018 seed
+            String thisContent = "";
+            try {
+                thisContent = AESHelper.decrypt("1808", thisDay.getString(thisDay.getColumnIndex("content")));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return new DiaryPage(thisDate, thisContent);
         }
     }
 
@@ -50,7 +59,15 @@ public class Diary extends ArrayList<DiaryPage> {
         if (last30Days.getCount() != 0) {
             last30Days.moveToFirst();
             while (!last30Days.isAfterLast()) {
-                ret.add(new DiaryPage(last30Days.getString(last30Days.getColumnIndex("date")), last30Days.getString(last30Days.getColumnIndex("content"))));
+                String thisDate = last30Days.getString(last30Days.getColumnIndex("date"));
+                // TODO: 6/10/2018 seed
+                String thisContent = "";
+                try {
+                    thisContent = AESHelper.decrypt("1808", last30Days.getString(last30Days.getColumnIndex("content")));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                ret.add(new DiaryPage(thisDate, thisContent));
                 last30Days.moveToNext();
             }
         }
