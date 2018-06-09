@@ -1,10 +1,13 @@
 package com.betezteam.betezdiary;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.betezteam.DiaryModel.Diary;
@@ -39,6 +42,8 @@ public class DiaryPageActivity extends AppCompatActivity {
         mainContent.setTypeface(scriptFont);
 
         CGButton cgButton = new CGButton(this);
+
+        assignDateChanger();
     }
 
     public void overView(View view) {
@@ -94,36 +99,54 @@ public class DiaryPageActivity extends AppCompatActivity {
         mainDiaryPage.submit(this);
     }
 
-    //
-//    private class customEditext extends android.support.v7.widget.AppCompatEditText{
-//        public customEditext(Context context) {
-//            super(context);
-//        }
-//
-//        public customEditext(Context context, AttributeSet attrs) {
-//            super(context, attrs);
-//        }
-//
-//        public customEditext(Context context, AttributeSet attrs, int defStyleAttr) {
-//            super(context, attrs, defStyleAttr);
-//        }
-//
-//        public customEditext(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-//            super(context, attrs, defStyleAttr, defStyleRes);
-//        }
-//
-//        @Override
-//        public boolean onKeyPreIme(int keyCode, KeyEvent event) {
-//            if (keyCode == KeyEvent.KEYCODE_BACK &&
-//                    event.getAction() == KeyEvent.ACTION_UP) {
-//                // do your stuff
-//
-//                return false;
-//            }
-//            return super.dispatchKeyEvent(event);
-//
-//        }
-//    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private void assignDateChanger() {
+        ScrollView viewport = findViewById(R.id.diary_page_view);
+        viewport.setOnTouchListener(new View.OnTouchListener() {
+            static final int MIN_DISTANCE = 150;
+            private int x1, x2;
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+                switch(event.getAction())
+                {
+                    case MotionEvent.ACTION_DOWN:
+                        x1 = (int) event.getX();
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        x2 = (int) event.getX();
+                        float deltaX = x2 - x1;
+                        if (deltaX > MIN_DISTANCE)
+                        {
+                            mainDiaryPage = Diary.getPreviousPage(mainDiaryPage, DiaryPageActivity.this);
+
+                            mainDate = findViewById(R.id.main_date);
+                            mainDate.setText(mainDiaryPage.getDateDisplayed());
+
+                            mainContent = findViewById(R.id.main_content);
+                            mainContent.setText(mainDiaryPage.getContent());
+                        }
+                        else if(deltaX < 0 - MIN_DISTANCE){
+                            mainDiaryPage = Diary.getNextPage(mainDiaryPage, DiaryPageActivity.this);
+
+                            mainDate = findViewById(R.id.main_date);
+                            mainDate.setText(mainDiaryPage.getDateDisplayed());
+
+                            mainContent = findViewById(R.id.main_content);
+                            mainContent.setText(mainDiaryPage.getContent());
+                        }
+                        else
+                        {
+                            // consider as something else - a screen tap for example
+                        }
+
+                        break;
+                }
+                return true;
+            }
+        });
+    }
+
 
 
 }

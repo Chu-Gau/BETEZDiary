@@ -33,7 +33,8 @@ public class DiaryPage {
     }
 
     public String getDateDisplayed() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("V");
         return this.date.format(formatter);
     }
 

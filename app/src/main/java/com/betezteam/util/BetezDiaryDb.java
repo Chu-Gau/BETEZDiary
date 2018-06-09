@@ -83,12 +83,11 @@ public class BetezDiaryDb extends SQLiteOpenHelper {
 
     public Cursor getPageByDate(String date) {
         String query = "Select * from diary where date = '" + date + "'";
-        Log.d("cg", query);
         return this.getReadableDatabase().rawQuery(query, null);
     }
 
-    public Cursor getLastRecord() {
-        String query = "Select * from diary where id = (select max(id) from diary)";
+    public Cursor getTop30(){
+        String query = "SELECT * FROM diary order by date desc limit 30";
         return this.getReadableDatabase().rawQuery(query, null);
     }
 

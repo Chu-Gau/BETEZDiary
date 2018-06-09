@@ -57,6 +57,7 @@ public class CGButton {
                     case MotionEvent.ACTION_UP:
                         cgButton.layer2.setVisibility(View.GONE);
                         setAction();
+                        unHighlight();
                         break;
 
                     case MotionEvent.ACTION_MOVE:
@@ -80,7 +81,7 @@ public class CGButton {
 
             private void setAction() {
                 EditText mainContent = activity.findViewById(R.id.main_content);
-                switch (currentButton.getId()){
+                switch (currentButton.getId()) {
                     case R.id.cg_button_root:
                         mainContent.append(". ");
                         break;
@@ -96,12 +97,15 @@ public class CGButton {
                 }
             }
 
-            private void highlightCurrent() {
+            private void unHighlight() {
                 rootButton.getBackground().setAlpha(255);
                 level2North.getBackground().setAlpha(255);
                 level2West.getBackground().setAlpha(255);
                 level2South.getBackground().setAlpha(255);
+            }
 
+            private void highlightCurrent() {
+                unHighlight();
                 currentButton.getBackground().setAlpha(128);
             }
 

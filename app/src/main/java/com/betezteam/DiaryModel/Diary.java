@@ -16,30 +16,48 @@ public class Diary extends ArrayList<DiaryPage> {
         super();
     }
 
-    private void get20data() {
-
-    }
-
-    public static DiaryPage getLastRecord(Context context) {
-        Cursor cursor = new BetezDiaryDb(context).getLastRecord();
-        if (cursor.getCount() == 0) {
-            return new DiaryPage("2018-05-14", "");
-        } else {
-            cursor.moveToFirst();
-            return new DiaryPage(cursor.getString(cursor.getColumnIndex("date")), cursor.getString(cursor.getColumnIndex("content")));
-        }
-    }
-
     public static DiaryPage getToday(Context context) {
+        return getPageByDate(LocalDate.now(), context);
+    }
+
+    public static DiaryPage getPageByDate(LocalDate date, Context context){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        Cursor today = new BetezDiaryDb(context).getPageByDate(LocalDate.now().format(formatter));
-        Log.d("cg", Integer.toString(today.getCount()));
-        if (today.getCount() == 0){
-            return new DiaryPage(LocalDate.now(), "");
+        Cursor thisDay = new BetezDiaryDb(context).getPageByDate(date.format(formatter));
+        if(thisDay.getCount() == 0){
+            return new DiaryPage(date, "");
         }
-        else {
-            today.moveToFirst();
-            return new DiaryPage(today.getString(today.getColumnIndex("date")), today.getString(today.getColumnIndex("content")));
+        else{
+            thisDay.moveToFirst();
+            return new DiaryPage(thisDay.getString(thisDay.getColumnIndex("date")), thisDay.getString(thisDay.getColumnIndex("content")));
+        }
+    }
+
+    public static DiaryPage getNextPage(DiaryPage page, Context context){
+        LocalDate date = page.getDate();
+        date = date.plusDays(1);
+        return getPageByDate(date, context);
+    }
+
+    public static DiaryPage getPreviousPage(DiaryPage page, Context context){
+        LocalDate date = page.getDate();
+        date = date.minusDays(1);
+        return getPageByDate(date, context);
+    }
+
+    public static ArrayList <DiaryPage> getTop30(Context context){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        Cursor last30Days = new BetezDiaryDb(context).getTop30();
+        if(last30Days.getCount() == 0){
+            return null;
+        }
+        else{
+            ArrayList <DiaryPage> ret = new ArrayList<>();
+            last30Days.moveToFirst();
+            while (!last30Days.isAfterLast()){
+                ret.add(new DiaryPage(last30Days.getString(last30Days.getColumnIndex("date")), last30Days.getString(last30Days.getColumnIndex("content"))));
+                last30Days.moveToNext();
+            }
+            return ret;
         }
     }
 }
