@@ -6,8 +6,10 @@ import com.betezteam.util.BetezDiaryDb;
 
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.format.DateTimeFormatter;
+import org.threeten.bp.format.FormatStyle;
 
 import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 public class DiaryPage {
 
@@ -33,8 +35,7 @@ public class DiaryPage {
     }
 
     public String getDateDisplayed() {
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("V");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         return this.date.format(formatter);
     }
 

@@ -9,6 +9,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/rounded_square_accent"
+            android:text="@string/lorem100"
             android:textColor="@color/colorText"
             android:textSize="23sp"
             android:paddingTop="30dp"
@@ -23,6 +24,7 @@
             android:background="@drawable/rounded_square_light"
             android:textColor="@color/colorText"
             android:textSize="23sp"
+            android:text="ksjdhkasjdhkajshdk"
             />
 
 </RelativeLayout>

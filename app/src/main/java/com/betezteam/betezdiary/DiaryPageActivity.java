@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ScrollView;
@@ -43,7 +45,8 @@ public class DiaryPageActivity extends AppCompatActivity {
 
         CGButton cgButton = new CGButton(this);
 
-        assignDateChanger();
+        assignEvents();
+
     }
 
     public void overView(View view) {
@@ -92,22 +95,15 @@ public class DiaryPageActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        mainDiaryPage.setContent(mainContent.getText().toString());
-        mainDiaryPage.submit(this);
-    }
-
-
     @SuppressLint("ClickableViewAccessibility")
-    private void assignDateChanger() {
+    private void assignDateSwipe() {
         ScrollView viewport = findViewById(R.id.diary_page_view);
         viewport.setOnTouchListener(new View.OnTouchListener() {
             static final int MIN_DISTANCE = 150;
             private int x1, x2;
             @Override
             public boolean onTouch(View view, MotionEvent event) {
+                mainDiaryPage.submit(DiaryPageActivity.this);
                 switch(event.getAction())
                 {
                     case MotionEvent.ACTION_DOWN:
@@ -140,6 +136,7 @@ public class DiaryPageActivity extends AppCompatActivity {
                             // consider as something else - a screen tap for example
                         }
 
+
                         break;
                 }
                 return true;
@@ -147,6 +144,29 @@ public class DiaryPageActivity extends AppCompatActivity {
         });
     }
 
+    private void assignDiarySync() {
+        mainContent.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                mainDiaryPage.setContent(mainContent.getText().toString());
+            }
+        });
+    }
+
+    private void assignEvents() {
+        assignDateSwipe();
+        assignDiarySync();
+    }
 
 
 }
