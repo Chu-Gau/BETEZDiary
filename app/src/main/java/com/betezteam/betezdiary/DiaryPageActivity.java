@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.betezteam.DiaryModel.Diary;
 import com.betezteam.DiaryModel.DiaryPage;
+import com.betezteam.util.CGButton;
 
 public class DiaryPageActivity extends AppCompatActivity {
 
@@ -58,6 +59,9 @@ public class DiaryPageActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+        if(getIntent().hasExtra("diaryPage")){
+            mainDiaryPage = (DiaryPage) getIntent().getExtras().getSerializable("diaryPage");
+        }
         mainDate = findViewById(R.id.main_date);
         mainDate.setText(mainDiaryPage.getDateDisplayed());
 

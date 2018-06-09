@@ -1,4 +1,4 @@
-package com.betezteam.betezdiary;
+package com.betezteam.util;
 
 
 import android.annotation.SuppressLint;
@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+
+import com.betezteam.betezdiary.R;
 
 public class CGButton {
 

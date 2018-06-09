@@ -40,10 +40,12 @@ public class BetezDiaryDb extends SQLiteOpenHelper {
 
     public void submmit(String date, String content) {
 
+        if(content.trim().isEmpty()) return; //Không lưu nếu DL trống
+        // TODO: 6/10/2018 test this part
+
+
         try {
             content = textValid(content);
-
-//            Log.d("cg", date);
             SQLiteDatabase db = this.getWritableDatabase();
             String query = "select * from diary where date = '" + date + "'";
             Cursor result = db.rawQuery(query, null);

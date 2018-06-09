@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="233dp"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
     android:paddingStart="15dp"
     android:paddingEnd="15dp">
 
         <TextView
+            android:id="@+id/top_30_list_content"
             android:layout_marginTop="45dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="144dp"
             android:background="@drawable/rounded_square_accent"
             android:text="@string/lorem100"
             android:textColor="@color/colorText"

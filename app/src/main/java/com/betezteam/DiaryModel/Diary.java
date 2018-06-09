@@ -20,44 +20,40 @@ public class Diary extends ArrayList<DiaryPage> {
         return getPageByDate(LocalDate.now(), context);
     }
 
-    public static DiaryPage getPageByDate(LocalDate date, Context context){
+    public static DiaryPage getPageByDate(LocalDate date, Context context) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         Cursor thisDay = new BetezDiaryDb(context).getPageByDate(date.format(formatter));
-        if(thisDay.getCount() == 0){
+        if (thisDay.getCount() == 0) {
             return new DiaryPage(date, "");
-        }
-        else{
+        } else {
             thisDay.moveToFirst();
             return new DiaryPage(thisDay.getString(thisDay.getColumnIndex("date")), thisDay.getString(thisDay.getColumnIndex("content")));
         }
     }
 
-    public static DiaryPage getNextPage(DiaryPage page, Context context){
+    public static DiaryPage getNextPage(DiaryPage page, Context context) {
         LocalDate date = page.getDate();
         date = date.plusDays(1);
         return getPageByDate(date, context);
     }
 
-    public static DiaryPage getPreviousPage(DiaryPage page, Context context){
+    public static DiaryPage getPreviousPage(DiaryPage page, Context context) {
         LocalDate date = page.getDate();
         date = date.minusDays(1);
         return getPageByDate(date, context);
     }
 
-    public static ArrayList <DiaryPage> getTop30(Context context){
+    public static ArrayList<DiaryPage> getTop30(Context context) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        ArrayList<DiaryPage> ret = new ArrayList<>();
         Cursor last30Days = new BetezDiaryDb(context).getTop30();
-        if(last30Days.getCount() == 0){
-            return null;
-        }
-        else{
-            ArrayList <DiaryPage> ret = new ArrayList<>();
+        if (last30Days.getCount() != 0) {
             last30Days.moveToFirst();
-            while (!last30Days.isAfterLast()){
+            while (!last30Days.isAfterLast()) {
                 ret.add(new DiaryPage(last30Days.getString(last30Days.getColumnIndex("date")), last30Days.getString(last30Days.getColumnIndex("content"))));
                 last30Days.moveToNext();
             }
-            return ret;
         }
+        return ret;
     }
 }
