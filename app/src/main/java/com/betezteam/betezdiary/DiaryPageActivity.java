@@ -70,35 +70,6 @@ public class DiaryPageActivity extends AppCompatActivity {
 
     }
 
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//
-//        Bundle getThrough = getIntent().getExtras();
-//
-//        if (getThrough == null || !getThrough.containsKey("get_through") || !getThrough.getBoolean("get_through")) {
-//                Intent actInt = new Intent(this, LockActivity.class);
-//                startActivity(actInt);
-//        }
-//        else {
-//            getIntent().putExtra("get_through", false);
-//        }
-//
-//
-//    }
-
-    private void lock(){
-        Bundle getThrough = getIntent().getExtras();
-
-        if (getThrough == null || !getThrough.containsKey("get_through") || !getThrough.getBoolean("get_through")) {
-                Intent actInt = new Intent(this, LockActivity.class);
-                startActivity(actInt);
-        }
-        else {
-            getIntent().putExtra("get_through", false);
-        }
-    }
-
     @SuppressLint("ClickableViewAccessibility")
     private void assignDateSwipe() {
         ScrollView viewport = findViewById(R.id.diary_page_view);
@@ -171,6 +142,5 @@ public class DiaryPageActivity extends AppCompatActivity {
         assignDateSwipe();
         assignDiarySync();
     }
-
 
 }

@@ -23,6 +23,7 @@ public class LockActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lock);
 
+        // TODO: 6/11/2018 xóa đi trên bản release
         startDiary(); //this is for test
 
         final EditText pass = findViewById(R.id.password_field);
@@ -66,6 +67,5 @@ public class LockActivity extends AppCompatActivity {
         actInt.putExtra("get_through", true);
         startActivity(actInt);
     }
-
 
 }
