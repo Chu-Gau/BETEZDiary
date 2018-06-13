@@ -4,14 +4,12 @@ import android.content.Context;
 
 import com.betezteam.util.AESHelper;
 import com.betezteam.util.BetezDiaryDb;
+import com.betezteam.util.SHA256Helper;
 
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.format.DateTimeFormatter;
-import org.threeten.bp.format.FormatStyle;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
-import java.util.Locale;
 
 public class DiaryPage implements Serializable{
 
@@ -68,7 +66,10 @@ public class DiaryPage implements Serializable{
 
         String encryptedContent = "";
         try {
-            encryptedContent = AESHelper.encrypt("1808", content);
+            // TODO: 6/13/2018  change seed to user id
+            String userId = "seed";
+            String encryptKey = SHA256Helper.SHA256WithSalt(userId + "BETEZTEAM", "betez2001");
+            encryptedContent = AESHelper.encrypt(encryptKey, content);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -9,19 +9,19 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class LockActivity extends AppCompatActivity {
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-
-    }
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lock);
+
+        mAuth = FirebaseAuth.getInstance();
 
         // TODO: 6/11/2018 xóa đi trên bản release
         startDiary(); //this is for test
@@ -68,4 +68,11 @@ public class LockActivity extends AppCompatActivity {
         startActivity(actInt);
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+//        updateUI(currentUser);
+    }
 }

@@ -2,10 +2,10 @@ package com.betezteam.DiaryModel;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.util.Log;
 
 import com.betezteam.util.AESHelper;
 import com.betezteam.util.BetezDiaryDb;
+import com.betezteam.util.SHA256Helper;
 
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.format.DateTimeFormatter;
@@ -29,10 +29,13 @@ public class Diary extends ArrayList<DiaryPage> {
         } else {
             thisDay.moveToFirst();
             String thisDate = thisDay.getString(thisDay.getColumnIndex("date"));
-            // TODO: 6/10/2018 seed
             String thisContent = "";
             try {
-                thisContent = AESHelper.decrypt("1808", thisDay.getString(thisDay.getColumnIndex("content")));
+                // TODO: 6/13/2018  change seed to user id
+                String userId = "seed";
+                String encryptKey = SHA256Helper.SHA256WithSalt(userId + "BETEZTEAM", "betez2001");
+                String encryptedContent = thisDay.getString(thisDay.getColumnIndex("content"));
+                thisContent = AESHelper.decrypt(encryptKey, encryptedContent);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -60,10 +63,13 @@ public class Diary extends ArrayList<DiaryPage> {
             last30Days.moveToFirst();
             while (!last30Days.isAfterLast()) {
                 String thisDate = last30Days.getString(last30Days.getColumnIndex("date"));
-                // TODO: 6/10/2018 seed
                 String thisContent = "";
                 try {
-                    thisContent = AESHelper.decrypt("1808", last30Days.getString(last30Days.getColumnIndex("content")));
+                    // TODO: 6/13/2018  change seed to user id
+                    String userId = "seed";
+                    String encryptKey = SHA256Helper.SHA256WithSalt(userId + "BETEZTEAM", "betez2001");
+                    String encryptedContent = last30Days.getString(last30Days.getColumnIndex("content"));
+                    thisContent = AESHelper.decrypt(encryptKey, encryptedContent);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

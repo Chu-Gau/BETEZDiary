@@ -20,14 +20,6 @@ public class OverViewActivity extends AppCompatActivity {
         getData();
     }
 
-    //
-//    @Override
-//    protected void onPause() {
-//        super.onPause();
-//        Intent actInt = new Intent(this, DiaryPageActivity.class);
-//        actInt.putExtra("get_through", true);
-//        startActivity(actInt);
-//    }
     private void getData(){
         ArrayList<DiaryPage> top30 = Diary.getTop30(this);
 

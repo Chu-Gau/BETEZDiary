@@ -3,15 +3,9 @@ package com.betezteam.util;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 import android.widget.Toast;
-
-import com.betezteam.DiaryModel.DiaryPage;
-
-import java.sql.Date;
 
 public class BetezDiaryDb extends SQLiteOpenHelper {
 
