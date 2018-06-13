@@ -9,19 +9,14 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-
 public class LockActivity extends AppCompatActivity {
-
-    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lock);
 
-        mAuth = FirebaseAuth.getInstance();
+        googleSignIn();
 
         // TODO: 6/11/2018 xóa đi trên bản release
         startDiary(); //this is for test
@@ -62,6 +57,11 @@ public class LockActivity extends AppCompatActivity {
 
     }
 
+    private void googleSignIn() {
+        Intent i = new Intent(this, SignInActivity.class);
+        startActivity(i);
+    }
+
     private void startDiary() {
         Intent actInt = new Intent(LockActivity.this, DiaryPageActivity.class);
         actInt.putExtra("get_through", true);
@@ -71,8 +71,5 @@ public class LockActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-//        updateUI(currentUser);
     }
 }
