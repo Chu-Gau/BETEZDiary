@@ -5,6 +5,7 @@ import android.content.Context;
 import com.betezteam.util.AESHelper;
 import com.betezteam.util.BetezDiaryDb;
 import com.betezteam.util.SHA256Helper;
+import com.google.firebase.auth.FirebaseAuth;
 
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.format.DateTimeFormatter;
@@ -62,12 +63,10 @@ public class DiaryPage implements Serializable{
             new BetezDiaryDb(context).delete(getDateString());
             return;
         }
-        // TODO: 6/10/2018 test this part, turn into delete data
 
         String encryptedContent = "";
         try {
-            // TODO: 6/13/2018  change seed to user id
-            String userId = "seed";
+            String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
             String encryptKey = SHA256Helper.SHA256WithSalt(userId + "BETEZTEAM", "betez2001");
             encryptedContent = AESHelper.encrypt(encryptKey, content);
         } catch (Exception e) {

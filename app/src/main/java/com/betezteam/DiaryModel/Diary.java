@@ -2,10 +2,12 @@ package com.betezteam.DiaryModel;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 
 import com.betezteam.util.AESHelper;
 import com.betezteam.util.BetezDiaryDb;
 import com.betezteam.util.SHA256Helper;
+import com.google.firebase.auth.FirebaseAuth;
 
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.format.DateTimeFormatter;
@@ -31,8 +33,7 @@ public class Diary extends ArrayList<DiaryPage> {
             String thisDate = thisDay.getString(thisDay.getColumnIndex("date"));
             String thisContent = "";
             try {
-                // TODO: 6/13/2018  change seed to user id
-                String userId = "seed";
+                String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
                 String encryptKey = SHA256Helper.SHA256WithSalt(userId + "BETEZTEAM", "betez2001");
                 String encryptedContent = thisDay.getString(thisDay.getColumnIndex("content"));
                 thisContent = AESHelper.decrypt(encryptKey, encryptedContent);
@@ -65,8 +66,7 @@ public class Diary extends ArrayList<DiaryPage> {
                 String thisDate = last30Days.getString(last30Days.getColumnIndex("date"));
                 String thisContent = "";
                 try {
-                    // TODO: 6/13/2018  change seed to user id
-                    String userId = "seed";
+                    String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
                     String encryptKey = SHA256Helper.SHA256WithSalt(userId + "BETEZTEAM", "betez2001");
                     String encryptedContent = last30Days.getString(last30Days.getColumnIndex("content"));
                     thisContent = AESHelper.decrypt(encryptKey, encryptedContent);

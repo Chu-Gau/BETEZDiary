@@ -33,6 +33,7 @@ public class LockActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence password, int i, int i1, int i2) {
                 if (password.length() == 4){
+                    // TODO: 6/14/2018 set lock number 
                     if(password.toString().equals("1808")){
                         startDiary();
                         finish();
