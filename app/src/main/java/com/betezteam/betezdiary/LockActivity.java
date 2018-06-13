@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -19,7 +20,7 @@ public class LockActivity extends AppCompatActivity {
         googleSignIn();
 
         // TODO: 6/11/2018 xóa đi trên bản release
-        startDiary(); //this is for test
+//        startDiary(); //this is for test
 
         final EditText pass = findViewById(R.id.password_field);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
@@ -59,7 +60,9 @@ public class LockActivity extends AppCompatActivity {
 
     private void googleSignIn() {
         Intent i = new Intent(this, SignInActivity.class);
+        Log.d("cg", "dm");
         startActivity(i);
+
     }
 
     private void startDiary() {
