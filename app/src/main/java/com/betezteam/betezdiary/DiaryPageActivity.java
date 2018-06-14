@@ -3,6 +3,9 @@ package com.betezteam.betezdiary;
 import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.speech.RecognizerIntent;
 import android.support.annotation.NonNull;
@@ -13,10 +16,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
+import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.HeaderViewListAdapter;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -25,10 +31,22 @@ import android.widget.Toast;
 
 import com.betezteam.DiaryModel.Diary;
 import com.betezteam.DiaryModel.DiaryPage;
+import com.betezteam.util.BitmapHelper;
 import com.betezteam.util.CGButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.squareup.picasso.Picasso;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Locale;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class DiaryPageActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
@@ -50,6 +68,8 @@ public class DiaryPageActivity extends AppCompatActivity implements NavigationVi
     private ImageButton menuButton;
     private NavigationView navigationView;
     private View headerView;
+    private CircleImageView userAvt;
+    private TextView userDisplayName;
 
 
 
@@ -64,8 +84,6 @@ public class DiaryPageActivity extends AppCompatActivity implements NavigationVi
         mainDate.requestFocus();
 
         mainContent = findViewById(R.id.main_content);
-        Typeface scriptFont = Typeface.createFromAsset(getAssets(), "DancingScript-Regular.ttf");
-        mainContent.setTypeface(scriptFont);
 
         cgButton = new CGButton(this);
 
@@ -84,6 +102,25 @@ public class DiaryPageActivity extends AppCompatActivity implements NavigationVi
             }
         });
 
+        userAvt = headerView.findViewById(R.id.avatar);
+        userDisplayName = headerView.findViewById(R.id.full_name);
+
+        fetchUserInfo();
+
+    }
+
+    private void fetchUserInfo() {
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = auth.getCurrentUser();
+
+        userDisplayName.setText(currentUser.getDisplayName());
+
+        String avtUrl = currentUser.getPhotoUrl().toString();
+//        Bitmap avt = BitmapHelper.getBitmapfromUrl(avtUrl);
+//        if(avt!=null){
+//            userAvt.setImageBitmap(avt);
+//        }
+        Picasso.get().load(avtUrl).into(userAvt);
     }
 
     public void overView(View view) {
@@ -197,18 +234,30 @@ public class DiaryPageActivity extends AppCompatActivity implements NavigationVi
 
         switch (id){
             case R.id.UI_setting:{
+                Intent intent = new Intent(DiaryPageActivity.this, ActivitySetting.class);
+                startActivity(intent);
                 onBackPressed();
                 break;
             }
 
             case R.id.change_password:{
+                Intent intent = new Intent(DiaryPageActivity.this, LockRegister.class);
+                startActivity(intent);
                 onBackPressed();
                 break;
             }
 
             case  R.id.logout:{
                 onBackPressed();
-                SignInActivity.signOut(this);
+                SignInActivity.signOut();
+                Intent intent = new Intent(this, LockActivity.class);
+                this.startActivity(intent);
+                break;
+            }
+            case R.id.about:{
+                Intent intent = new Intent(DiaryPageActivity.this, AboutAcivity.class);
+                startActivity(intent);
+                onBackPressed();
                 break;
             }
 
@@ -225,4 +274,19 @@ public class DiaryPageActivity extends AppCompatActivity implements NavigationVi
             super.onBackPressed();
         }
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        SharedPreferences preferences = getSharedPreferences("inforSetting", MODE_PRIVATE);
+        String font = preferences.getString("Font", "DancingScript");
+
+        Typeface scriptFont = Typeface.createFromAsset(getAssets(), font+".ttf");
+        mainContent.setTypeface(scriptFont);
+
+        int fontSize = preferences.getInt("Size", 24);
+        mainContent.setTextSize((float)fontSize);
+    }
+
+
 }

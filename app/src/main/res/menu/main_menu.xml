@@ -19,5 +19,11 @@
         android:icon="@drawable/ic_logout"
         android:title="Đăng xuất" />
 
+    <item
+        android:id="@+id/about"
+        android:icon="@drawable/ic_info_outline_black_24dp"
+        android:title="Về chúng tôi" />
+
+
 
 </menu>

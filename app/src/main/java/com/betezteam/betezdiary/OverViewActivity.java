@@ -79,7 +79,11 @@ public class OverViewActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        datePicker.setVisibility(View.GONE);
+        if (datePicker.getVisibility() == View.VISIBLE) {
+            datePicker.setVisibility(View.GONE);
+
+        } else {
+            super.onBackPressed();
+        }
     }
 }

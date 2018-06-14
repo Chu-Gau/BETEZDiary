@@ -3,6 +3,7 @@ package com.betezteam.betezdiary;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,10 +23,10 @@ public class LockActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lock);
 
-//        googleSignIn();
+        if(SignInActivity.isSignedIn())finish();
 
         // TODO: 6/11/2018 xóa đi trên bản release
-        startDiary(); //this is for test
+//        startDiary(); //this is for test
 
     }
 
@@ -45,9 +46,15 @@ public class LockActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onTextChanged(CharSequence password, int i, int i1, int i2) {
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String password = pass.getText().toString();
                 if (password.length() == 4){
-                    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(LockActivity.this);
+                    SharedPreferences preferences = getSharedPreferences("BETEZDiaryPref", MODE_PRIVATE);
                     String encryptedPass = preferences.getString("BETEZDiaryPassCode", null);
                     password = SHA256Helper.SHA256WithSalt(password.toString(), "BETEZTEAMkumatsuki");
 
@@ -65,11 +72,6 @@ public class LockActivity extends AppCompatActivity {
                     Toast.makeText(LockActivity.this, "Mật khẩu sai!", Toast.LENGTH_LONG).show();
                     pass.setText("");
                 }
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
             }
         });
     }

@@ -152,14 +152,18 @@ public class SignInActivity extends AppCompatActivity {
     }
 
 
-    public static void signOut(Context context) {
+    public static void signOut() {
         FirebaseAuth.getInstance().signOut();
-        Intent intent = new Intent(context, LockActivity.class);
-        context.startActivity(intent);
     }
 
     public void next(View v){
         // TODO: 6/14/2018 to the register screen
         finish();
     }
+
+    public static boolean isSignedIn(){
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        return  currentUser != null;
+    }
 }
+
