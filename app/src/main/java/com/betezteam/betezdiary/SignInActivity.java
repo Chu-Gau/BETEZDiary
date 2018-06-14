@@ -54,11 +54,10 @@ public class SignInActivity extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser == null) {
             signIn();
-        } else {
-            // TODO: 6/14/2018 getinfo
-            Log.d("cg", currentUser.getDisplayName());
-            finish();
         }
+        // TODO: 6/14/2018 getinfo
+        Log.d("cg", currentUser.getDisplayName());
+        finish();
 
     }
 
