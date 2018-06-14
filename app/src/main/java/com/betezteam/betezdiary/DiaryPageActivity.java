@@ -1,22 +1,36 @@
 package com.betezteam.betezdiary;
 
 import android.annotation.SuppressLint;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.speech.RecognizerIntent;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.betezteam.DiaryModel.Diary;
 import com.betezteam.DiaryModel.DiaryPage;
 import com.betezteam.util.CGButton;
 
-public class DiaryPageActivity extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.Locale;
+
+public class DiaryPageActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     public DiaryPage getMainDiaryPage() {
         return mainDiaryPage;
@@ -31,6 +45,13 @@ public class DiaryPageActivity extends AppCompatActivity {
     private DiaryPage mainDiaryPage;
     private TextView mainDate;
     private TextView mainContent;
+    private CGButton cgButton;
+    private DrawerLayout drawerLayout;
+    private ImageButton menuButton;
+    private NavigationView navigationView;
+    private View headerView;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +67,22 @@ public class DiaryPageActivity extends AppCompatActivity {
         Typeface scriptFont = Typeface.createFromAsset(getAssets(), "DancingScript-Regular.ttf");
         mainContent.setTypeface(scriptFont);
 
-        CGButton cgButton = new CGButton(this);
+        cgButton = new CGButton(this);
+
+
+        drawerLayout = findViewById(R.id.main_drawer_layout);
+        menuButton = findViewById(R.id.menu_button);
+        navigationView = findViewById(R.id.navigation_view);
+        headerView = navigationView.inflateHeaderView(R.layout.drawer_header);
+        navigationView.setNavigationItemSelectedListener(this);
 
         assignEvents();
+        menuButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawerLayout.openDrawer(GravityCompat.START);
+            }
+        });
 
     }
 
@@ -146,5 +180,49 @@ public class DiaryPageActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Receiving speech input
+     * */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
+        cgButton.getSpeechResult(requestCode, resultCode, data);
+
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+
+        switch (id){
+            case R.id.UI_setting:{
+                onBackPressed();
+                break;
+            }
+
+            case R.id.change_password:{
+                onBackPressed();
+                break;
+            }
+
+            case  R.id.logout:{
+                onBackPressed();
+                SignInActivity.signOut(this);
+                break;
+            }
+
+        }
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        // khi an back, neu navigation dang mo thi dong lai
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+            drawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
 }

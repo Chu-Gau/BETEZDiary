@@ -1,6 +1,9 @@
 package com.betezteam.betezdiary;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -10,6 +13,8 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.betezteam.util.SHA256Helper;
+
 public class LockActivity extends AppCompatActivity {
 
     @Override
@@ -17,11 +22,20 @@ public class LockActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lock);
 
-        googleSignIn();
+//        googleSignIn();
 
         // TODO: 6/11/2018 xóa đi trên bản release
-//        startDiary(); //this is for test
+        startDiary(); //this is for test
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        assignEvents();
+    }
+
+    private void assignEvents() {
         final EditText pass = findViewById(R.id.password_field);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         pass.addTextChangedListener(new TextWatcher() {
@@ -33,8 +47,12 @@ public class LockActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence password, int i, int i1, int i2) {
                 if (password.length() == 4){
-                    // TODO: 6/14/2018 set lock number 
-                    if(password.toString().equals("1808")){
+                    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(LockActivity.this);
+                    String encryptedPass = preferences.getString("BETEZDiaryPassCode", null);
+                    password = SHA256Helper.SHA256WithSalt(password.toString(), "BETEZTEAMkumatsuki");
+
+                    // TODO: 6/14/2018 set lock number
+                    if(password.toString().equals(encryptedPass)){
                         startDiary();
                         finish();
                     }
@@ -54,16 +72,13 @@ public class LockActivity extends AppCompatActivity {
 
             }
         });
-
-
-
     }
 
     private void googleSignIn() {
         Intent i = new Intent(this, SignInActivity.class);
         Log.d("cg", "dm");
         startActivity(i);
-
+//        finish();
     }
 
     private void startDiary() {
@@ -72,8 +87,4 @@ public class LockActivity extends AppCompatActivity {
         startActivity(actInt);
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
 }

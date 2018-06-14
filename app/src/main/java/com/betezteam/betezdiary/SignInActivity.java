@@ -1,18 +1,21 @@
 package com.betezteam.betezdiary;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
-import com.betezteam.util.CGButton;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInStatusCodes;
+import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -29,6 +32,10 @@ public class SignInActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
 
+    private Button nextButton;
+    private SignInButton googleSignInButton;
+    private TextView signInNotif;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,20 +51,46 @@ public class SignInActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         Log.d("cg", "dmm");
 
+        nextButton = findViewById(R.id.sign_in_next);
+        nextButton.setVisibility(View.GONE);
 
+        googleSignInButton = findViewById(R.id.google_sign_in_button);
+        googleSignInButton.setVisibility(View.GONE);
+        
+        signInNotif = findViewById(R.id.sign_in_notif);
+        
+        assignEvents();
+    }
+
+    private void assignEvents() {
+        googleSignInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                signIn();
+            }
+        });
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SignInActivity.this, LockRegister.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onResume() {
+        super.onResume();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser == null) {
-            signIn();
+            signInNotif.setText("Trước tiên bạn phải đăng nhập");
+            googleSignInButton.setVisibility(View.VISIBLE);
+        } else {
+            Intent intent = new Intent(this, LockActivity.class);
+            startActivity(intent);
+            finish();
         }
-        // TODO: 6/14/2018 getinfo
-        Log.d("cg", currentUser.getDisplayName());
-        finish();
 
     }
 
@@ -100,19 +133,33 @@ public class SignInActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
+                            // TODO: 6/14/2018   taskTodo
+                            signInNotif.setText("Đăng nhập thành công! Nhấn \"Tiếp theo\" để thiết lập mật khẩu...");
+                            nextButton.setVisibility(View.VISIBLE);
+                            googleSignInButton.setVisibility(View.GONE);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                             signInFailNotif();
                         }
-
-                        // ...
                     }
                 });
     }
 
     private void signInFailNotif() {
-        TextView signInFailNotif = findViewById(R.id.sign_in_fail_notif);
+        TextView signInFailNotif = findViewById(R.id.sign_in_notif);
         signInFailNotif.setText(R.string.sign_in_fail_notif);
+    }
+
+
+    public static void signOut(Context context) {
+        FirebaseAuth.getInstance().signOut();
+        Intent intent = new Intent(context, LockActivity.class);
+        context.startActivity(intent);
+    }
+
+    public void next(View v){
+        // TODO: 6/14/2018 to the register screen
+        finish();
     }
 }

@@ -1,17 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/lock_gradien"
     android:orientation="vertical">
+
+
     <ListView
         android:id="@+id/top_30_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@id/date_picker"
+        android:background="@android:color/transparent">
 
     </ListView>
+
+
+    <CalendarView
+        android:id="@+id/date_picker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/date_picker_button"
+        android:background="@android:color/transparent">
+
+    </CalendarView>
+
+
+    <ImageButton
+        android:id="@+id/date_picker_button"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:background="@android:color/transparent"
+        android:gravity="center"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_date_range"
+        android:text="" />
 
 </RelativeLayout>

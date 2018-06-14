@@ -6,9 +6,32 @@
     tools:context=".SignInActivity">
 
     <TextView
-        android:id="@+id/sign_in_fail_notif"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/sign_in_notif"
+        android:layout_width="258dp"
+        android:layout_height="87dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:gravity="center"
+        android:textSize="18sp"
         tools:layout_editor_absoluteX="176dp"
         tools:layout_editor_absoluteY="366dp" />
+
+    <Button
+        android:id="@+id/sign_in_next"
+        android:layout_width="131dp"
+        android:layout_height="85dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="212dp"
+        android:text="Tiếp theo"
+        android:onClick="next"/>
+
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/google_sign_in_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="229dp" />
 </RelativeLayout>

@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.betezteam.betezdiary.DiaryPageActivity;
 import com.betezteam.betezdiary.R;
 
 import java.util.ArrayList;
@@ -22,13 +23,16 @@ import java.util.Locale;
 
 public class CGButton {
 
+    private final int REQ_CODE_SPEECH_INPUT = 100;
+
+
     private Activity activity;
 
     private RelativeLayout rootLayout;
     private RelativeLayout layer2;
     private Button rootButton, level2North, level2West, level2South;
 
-        public CGButton(Context context) {
+    public CGButton(Context context) {
         this.activity = (Activity) context;
 
         this.rootLayout = activity.findViewById(R.id.cg_button);
@@ -90,20 +94,24 @@ public class CGButton {
 
             private void setAction() {
                 EditText mainContent = activity.findViewById(R.id.main_content);
-                switch (currentButton.getId()) {
-                    case R.id.cg_button_root:
-                        mainContent.append(". ");
-                        break;
-                    case R.id.cg_button_level_2_north:
-                        mainContent.append(", ");
-                        break;
-                    case R.id.cg_button_level_2_west:
-                        mainContent.append("! ");
-                        break;
-                    case R.id.cg_button_level_2_south:
-                        mainContent.append("? ");
-                        break;
+                if (!mainContent.getText().toString().isEmpty()){
+                    switch (currentButton.getId()) {
+                        case R.id.cg_button_root:
+                            mainContent.append(". ");
+                            break;
+                        case R.id.cg_button_level_2_north:
+                            mainContent.append(", ");
+                            break;
+                        case R.id.cg_button_level_2_west:
+                            mainContent.append("! ");
+                            break;
+                        case R.id.cg_button_level_2_south:
+                            mainContent.append("? ");
+                            break;
+                    }
                 }
+                promptSpeechInput();
+
             }
 
             private void unHighlight() {
@@ -131,5 +139,40 @@ public class CGButton {
 
     }
 
+    /**
+     * Showing google speech input dialog
+     * */
+    public void promptSpeechInput() {
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT,
+                activity.getString(R.string.speech_prompt));
+        try {
+            activity.startActivityForResult(intent, REQ_CODE_SPEECH_INPUT);
+        } catch (ActivityNotFoundException a) {
+            Toast.makeText(activity.getApplicationContext(),
+                    activity.getString(R.string.speech_not_supported),
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
 
+
+    public void getSpeechResult(int requestCode, int resultCode, Intent data) {
+
+        switch (requestCode) {
+            case REQ_CODE_SPEECH_INPUT: {
+                if (resultCode == activity.RESULT_OK && null != data) {
+
+                    ArrayList<String> result = data
+                            .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                    EditText mainContent = activity.findViewById(R.id.main_content);
+                    mainContent.append(result.get(0));
+                }
+                break;
+            }
+
+        }
+    }
 }
