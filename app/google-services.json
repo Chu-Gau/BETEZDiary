@@ -1,0 +1,50 @@
+{
+  "project_info": {
+    "project_number": "415088894391",
+    "firebase_url": "https://betezdiary.firebaseio.com",
+    "project_id": "betezdiary",
+    "storage_bucket": "betezdiary.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:415088894391:android:a24c65c1c26cfa39",
+        "android_client_info": {
+          "package_name": "com.betezteam.betezdiary"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "415088894391-b1jmnduqr0dms3s0ic11j2hh6upb7up4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.betezteam.betezdiary",
+            "certificate_hash": "ab274ef42c1557287765a7bf1de6c053a888cd5a"
+          }
+        },
+        {
+          "client_id": "415088894391-dsd3tu8nba8muci4dql0cgj6d40g67kj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOJpE4DyvKhRyFk1nssf_bpche8hv_vLc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

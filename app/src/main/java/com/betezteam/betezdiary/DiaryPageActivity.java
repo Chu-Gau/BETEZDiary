@@ -26,6 +26,8 @@ public class DiaryPageActivity extends AppCompatActivity {
         this.mainDiaryPage = mainDiaryPage;
     }
 
+    private final int REQ_CODE_SPEECH_INPUT = 100;
+
     private DiaryPage mainDiaryPage;
     private TextView mainDate;
     private TextView mainContent;
@@ -142,5 +144,7 @@ public class DiaryPageActivity extends AppCompatActivity {
         assignDateSwipe();
         assignDiarySync();
     }
+
+
 
 }

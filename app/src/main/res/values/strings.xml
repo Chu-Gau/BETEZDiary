@@ -11,4 +11,8 @@ Maecenas elementum vulputate purus nec tempus. Sed ante quam, scelerisque ac fel
     <string name="enter_password_hint">Nhập mật khẩu</string>
     <string name="sign_in_fail_notif">Có lỗi xảy ra khi đăng nhập!</string>
 
+    <!--Speech reconization-->
+    <string name="speech_prompt">Say something&#8230;</string>
+    <string name="speech_not_supported">Sorry! Your device doesn\'t support speech input</string>
+    <string name="tap_on_mic">Tap on mic to speak</string>
 </resources>

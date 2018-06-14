@@ -3,15 +3,22 @@ package com.betezteam.util;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.Intent;
+import android.speech.RecognizerIntent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.betezteam.betezdiary.R;
+
+import java.util.ArrayList;
+import java.util.Locale;
 
 public class CGButton {
 
@@ -21,8 +28,7 @@ public class CGButton {
     private RelativeLayout layer2;
     private Button rootButton, level2North, level2West, level2South;
 
-
-    public CGButton(Context context) {
+        public CGButton(Context context) {
         this.activity = (Activity) context;
 
         this.rootLayout = activity.findViewById(R.id.cg_button);
